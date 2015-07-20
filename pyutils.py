@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-#ROLLING HOUGH TRANSFORM FIBER EXTRACTION
-#Susan Clark, Lowell Schudel
+#Author: Lowell Schudel
+#Contact: les2185@columbia.edu
 
 #-----------------------------------------------------------------------------------------
-#Imports
+# Imports
 #-----------------------------------------------------------------------------------------
 from __future__ import division #Must be first line of code in the file
 import sys
@@ -18,6 +18,37 @@ import datetime
 import scipy.stats
 import numpy as np
 
+
+#-----------------------------------------------------------------------------------------
+# Progress Reporting
+#-----------------------------------------------------------------------------------------
+class map:
+    '''
+    STDOUT Progress Reporting
+    Eqivalent to map(function, things)
+    '''
+    def __init__(self, function, things, out=None, message='Processing: '):
+        '''
+        Things must be an iterable of length > 0
+        Function must be a method that accepts one thing and returns one value 
+        Expects out to be a reference to an empty list that you wish to hold the output
+        '''
+        if out is None:
+            self.out = list()
+        elif isinstance(out, list) and len(out) == 0:
+            self.out = out
+
+        constant = 100/len(things)
+        for i, thing in enumerate(things):
+            sys.stdout.write('\r'+(message+str(i*constant)+'%... ')[:79])
+            sys.stdout.flush()
+            self.out.append(function(thing))
+        sys.stdout.write('\r'+' '*79)
+        sys.stdout.flush()
+        sys.stdout.write('\rDone!')
+        sys.stdout.flush()
+        print ''
+        
 class ProgressBar:
     # Create progress meter that looks like: 
     # message + ' ' + '[' + '#'*p + ' '*(length-p) + ']' + time_message
@@ -137,3 +168,27 @@ class ProgressBar:
             self._start_time = None #time.time()
             self._dp = 1.0/self._problem_size
         self._last_update = time.time()
+
+#-----------------------------------------------------------------------------------------
+# Plotting 
+#-----------------------------------------------------------------------------------------
+
+#TODO
+
+
+
+#-----------------------------------------------------------------------------------------
+# Numerical Methods
+#-----------------------------------------------------------------------------------------
+
+#TODO
+
+
+#-----------------------------------------------------------------------------------------
+# Command Line Mode
+#-----------------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+
+    print('But nothing happened?..')
+    exit(129)
